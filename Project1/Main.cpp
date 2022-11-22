@@ -35,22 +35,7 @@ int main(){
             b++;
         }
     }
-    /*for (int i = 1; i <= 10; i++)
-        for (int j = 1; j <= 10; j++)
-        {
-            int n = 0;
-            if (a[i][j].pole == 9) continue;
-            if (a[i + 1][j].pole == 9) n++;
-            if (a[i][j + 1].pole == 9) n++;
-            if (a[i - 1][j].pole == 9) n++;
-            if (a[i][j - 1].pole == 9) n++;
-            if (a[i + 1][j + 1].pole == 9) n++;
-            if (a[i - 1][j - 1].pole == 9) n++;
-            if (a[i - 1][j + 1].pole == 9) n++;
-            if (a[i + 1][j - 1].pole == 9) n++;
-            a[i][j].pole = n;
-    
-        }*/
+  
 
     //Liczenie min na obwodzie pola
     for (int i = 1; i <= 10; i++)
