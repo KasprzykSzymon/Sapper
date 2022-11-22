@@ -5,52 +5,62 @@
 //#include<SFML/System.hpp>
 //#include<SFML/Window.hpp>
 #include <time.h>
-Pole a[10][10];
-
-
+ 
 using namespace sf;
 
-void show(unsigned short x, unsigned short y) {
-    a[x][y].show = 1;
-}
+int main(){
 
-
-int main()
-{
-     
     srand(time(0));
+    Pole a[12][12];
 
     //Renderowanie okna aplikacji
     RenderWindow app(VideoMode(400, 400), "Sapper!");
 
-    int w = 32;
-    int x, y;
-    int b=0,bombs = 10;
+    int pixels = 32;
 
+    int b = 0, bombs = 10;
+    
+    Texture picture1;
+    picture1.loadFromFile("images/iconPools.jpg");
+    Sprite s(picture1);
+    
     //losowanie miejsc bomb 
-    while (b == bombs) {
-        
-        if (a[x][y].bomb == 0) {
-            a[x][y].bomb = 1;
+    while (b != bombs) {
+        int P1 = (rand() % 10 + 1);
+        int P2 = (rand() % 10 + 1);
+
+        if (a[P1][P2].bomb == 0) {
+            a[P1][P2].bomb = true;
+            a[P1][P2].pole = 9;
             b++;
         }
     }
 
 
-    
 
-    Texture picture1;
-    picture1.loadFromFile("images/iconPools.jpg");
-    Sprite s(picture1);
+    for (int i = 1; i <= 10; i++)
+        for (int j = 1; j <= 10; j++)
+        {
+            int n = 0;
+            if (a[i][j].bomb == true) continue;
+            if (a[i + 1][j].bomb == true) n++;
+            if (a[i][j + 1].bomb == true) n++;
+            if (a[i - 1][j].bomb == true) n++;
+            if (a[i][j - 1].bomb == true) n++;
+            if (a[i + 1][j + 1].bomb == true) n++;
+            if (a[i - 1][j - 1].bomb == true) n++;
+            if (a[i - 1][j + 1].bomb == true) n++;
+            if (a[i + 1][j - 1].bomb == true) n++;
+            a[i][j].pole = n;
+        }
 
 
-    
+    while (app.isOpen())
+    {
 
-    while (app.isOpen()) {
-
-        Vector2i pos = Mouse::getPosition(app);
-        x = pos.x / w;
-        y = pos.y / w;
+        Vector2i position = Mouse::getPosition(app);
+        int x = position.x / pixels;
+        int y = position.y / pixels;
 
         Event e;
 
@@ -59,37 +69,39 @@ int main()
             if (e.type == Event::Closed)
                 app.close();
 
-        if (e.type == Event::MouseButtonPressed)
-                if (e.key.code == Mouse::Left) a[x][y].show=1;
-                else if (e.key.code == Mouse::Right) a[x][y].flag = 1;
+            if (e.type == Event::MouseButtonPressed) {
+                if (e.key.code == Mouse::Left){
+                    if(a[x][y].actual!=11)
+                        a[x][y].actual = a[x][y].pole;}
+                    
 
-        
-
-                
-         
-        }
-        for (unsigned short i = 0; i < 10; i++) {
-            for (unsigned short j = 0; j < 10; j++) {
-                if (a[i][j].show == 0) a[i][j].pole = 10;
-                else if (a[i][j].flag == 1) a[i][j].pole == 11;
+                else if (e.key.code == Mouse::Right) {
+                    if (a[x][y].actual == 10)
+                        a[x][y].actual = 11;
+                    else if (a[x][y].actual == 11)
+                        a[x][y].actual = 10;
+                }
             }
         }
-        
 
-        app.clear(Color::Black);
 
-        s.setTextureRect(IntRect(a[x][y].pole * w, 0, w, w));
-        s.setPosition(10, 10);
-        app.draw(s); 
-        
 
-        
 
-        app.display();
-}
+            app.clear(Color::Black);
 
-    
-    
+            for (int i = 1; i <= 10; i++)
+                for (int j = 1; j <= 10; j++)
+                {
+                    if (a[i][j].actual == 9) a[i][j].actual = a[i][j].pole;
+                    s.setTextureRect(IntRect(a[i][j].actual * pixels, 0, pixels, pixels));
+                    s.setPosition(i * pixels, j * pixels);
+                    app.draw(s);
+                }
+            
 
-    return 0;
+            app.display();
+
+    }
+
+        return 0;
 }
