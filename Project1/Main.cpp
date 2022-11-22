@@ -35,9 +35,24 @@ int main(){
             b++;
         }
     }
+    /*for (int i = 1; i <= 10; i++)
+        for (int j = 1; j <= 10; j++)
+        {
+            int n = 0;
+            if (a[i][j].pole == 9) continue;
+            if (a[i + 1][j].pole == 9) n++;
+            if (a[i][j + 1].pole == 9) n++;
+            if (a[i - 1][j].pole == 9) n++;
+            if (a[i][j - 1].pole == 9) n++;
+            if (a[i + 1][j + 1].pole == 9) n++;
+            if (a[i - 1][j - 1].pole == 9) n++;
+            if (a[i - 1][j + 1].pole == 9) n++;
+            if (a[i + 1][j - 1].pole == 9) n++;
+            a[i][j].pole = n;
+    
+        }*/
 
-
-
+    //Liczenie min na obwodzie pola
     for (int i = 1; i <= 10; i++)
         for (int j = 1; j <= 10; j++)
         {
@@ -71,7 +86,7 @@ int main(){
 
             if (e.type == Event::MouseButtonPressed) {
                 if (e.key.code == Mouse::Left){
-                    if(a[x][y].actual!=11)
+                    //if(a[x][y].actual!=11)
                         a[x][y].actual = a[x][y].pole;}
                     
 
@@ -92,7 +107,7 @@ int main(){
             for (int i = 1; i <= 10; i++)
                 for (int j = 1; j <= 10; j++)
                 {
-                    if (a[i][j].actual == 9) a[i][j].actual = a[i][j].pole;
+                    if (a[x][y].actual == 9) a[i][j].actual = a[i][j].pole;
                     s.setTextureRect(IntRect(a[i][j].actual * pixels, 0, pixels, pixels));
                     s.setPosition(i * pixels, j * pixels);
                     app.draw(s);
