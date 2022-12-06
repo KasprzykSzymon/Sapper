@@ -21,9 +21,15 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pole.hpp">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FukcjeGrupy.hpp">
       <Filter>Source Files\Headers</Filter>
     </ClInclude>
   </ItemGroup>

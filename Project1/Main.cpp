@@ -5,36 +5,40 @@
 //#include<SFML/System.hpp>
 //#include<SFML/Window.hpp>
 #include <time.h>
- 
+
+
+
 using namespace sf;
 
 int main(){
+    srand(time(NULL));
 
-    srand(time(0));
-    Pole a[12][12];
+    
+ 
 
     //Renderowanie okna aplikacji
-    RenderWindow app(VideoMode(400, 400), "Sapper!");
+    RenderWindow app(VideoMode(400, 400), "Sapper");
 
-    int pixels = 32;
-
-    int b = 0, bombs = 10;
+    int b = 0, bombs = 20, pixels = 32;
     
+    //Wczytanie obrazu
     Texture picture1;
     picture1.loadFromFile("images/iconPools.jpg");
     Sprite s(picture1);
     
+    
     //losowanie miejsc bomb 
-    while (b != bombs) {
-        int P1 = (rand() % 10 + 1);
-        int P2 = (rand() % 10 + 1);
+    while (b!=bombs) {
+        int P1 = wylosuj();
+        int P2 = wylosuj();
 
-        if (a[P1][P2].bomb == 0) {
+        if (a[P1][P2].mines != 9){
             a[P1][P2].bomb = true;
-            a[P1][P2].pole = 9;
+            a[P1][P2].mines = 9;
             b++;
         }
-    }
+        
+    } 
   
 
     //Liczenie min na obwodzie pola
@@ -51,13 +55,13 @@ int main(){
             if (a[i - 1][j - 1].bomb == true) n++;
             if (a[i - 1][j + 1].bomb == true) n++;
             if (a[i + 1][j - 1].bomb == true) n++;
-            a[i][j].pole = n;
+            a[i][j].mines = n;
         }
 
 
     while (app.isOpen())
     {
-
+        // Ustalenie pozycji kursora
         Vector2i position = Mouse::getPosition(app);
         int x = position.x / pixels;
         int y = position.y / pixels;
@@ -66,13 +70,31 @@ int main(){
 
         while (app.pollEvent(e))
         {
+            if (e.type == Event::KeyPressed) {
+                if (e.key.code == Keyboard::R) {
+                    for (int i = 0; i <= 10; i++) {
+                        for (int j = 0; j <= 10; j++) {
+                            a[i][j].actual = 10;
+                        }
+                    }
+                }
+            }
             if (e.type == Event::Closed)
                 app.close();
 
             if (e.type == Event::MouseButtonPressed) {
                 if (e.key.code == Mouse::Left){
-                    //if(a[x][y].actual!=11)
-                        a[x][y].actual = a[x][y].pole;}
+                    if(a[x][y].actual!=11)
+                        a[x][y].actual = a[x][y].mines;
+                    if (a[x][y].actual == 0) {
+                        odslon(x, y);
+                        while (tab > ile) {
+                            odslon(tabX[ile], tabY[ile]);
+                            std::cout << ile <<  std::endl;
+                        }
+                        
+                    }
+                }
                     
 
                 else if (e.key.code == Mouse::Right) {
@@ -83,24 +105,21 @@ int main(){
                 }
             }
         }
-
-
-
-
+            //Kolor t³a
             app.clear(Color::Black);
 
+
+            //Wyœwietlanie ikon
             for (int i = 1; i <= 10; i++)
                 for (int j = 1; j <= 10; j++)
                 {
-                    if (a[x][y].actual == 9) a[i][j].actual = a[i][j].pole;
+                    if (a[x][y].actual == 9) a[i][j].actual = a[i][j].mines;
                     s.setTextureRect(IntRect(a[i][j].actual * pixels, 0, pixels, pixels));
                     s.setPosition(i * pixels, j * pixels);
                     app.draw(s);
                 }
             
-
             app.display();
-
     }
 
         return 0;
