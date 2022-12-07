@@ -86,18 +86,19 @@ int main(){
                 if (e.key.code == Mouse::Left){
                     if(a[x][y].actual!=11)
                         a[x][y].actual = a[x][y].mines;
-                    if (a[x][y].actual == 0) {
+                     /*if (a[x][y].actual == 0) {
                         odslon(x, y);
                         while (tab > ile) {
                             odslon(tabX[ile], tabY[ile]);
                             std::cout << ile <<  std::endl;
                         }
                         
-                    }
+                    }*/
                 }
                     
 
                 else if (e.key.code == Mouse::Right) {
+                    std::cout << x << "  Y:  " << y << std::endl;
                     if (a[x][y].actual == 10)
                         a[x][y].actual = 11;
                     else if (a[x][y].actual == 11)
