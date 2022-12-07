@@ -29,7 +29,7 @@
     <ClInclude Include="Pole.hpp">
       <Filter>Source Files\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="FukcjeGrupy.hpp">
+    <ClInclude Include="Struktura.hpp">
       <Filter>Source Files\Headers</Filter>
     </ClInclude>
   </ItemGroup>
