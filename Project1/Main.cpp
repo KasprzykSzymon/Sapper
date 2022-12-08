@@ -3,7 +3,7 @@
 //#include <SFML/Audio.hpp>
 //#include<SFML/Network.hpp>
 //#include<SFML/System.hpp>
-//#include<SFML/Window.hpp>
+#include<SFML/Window.hpp>
 #include <time.h>
 
 
@@ -15,6 +15,8 @@ int main(){
 
     //Renderowanie okna aplikacji
     RenderWindow app(VideoMode(400, 400), "Sapper");
+
+
 
     int b = 0, bombs = 20, pixels = 32;
     
@@ -58,16 +60,25 @@ int main(){
 
     while (app.isOpen())
     {
+        Event e;
+
+        
+
         // Ustalenie pozycji kursora
         Vector2i position = Mouse::getPosition(app);
         int x = position.x / pixels;
         int y = position.y / pixels;
 
-        Event e;
 
         while (app.pollEvent(e))
         {
+            //Zabezpieczenie przed odkryciem pól podczas wyjœcia kursora poza okno
+            if (e.type == Event::MouseEntered)
+                std::cout << "the mouse cursor has entered the window" << std::endl;
+
             if (e.type == Event::KeyPressed) {
+
+                //resetowanie obecnej rozgrywki po naciœniêciu R
                 if (e.key.code == Keyboard::R) {
                     for (int i = 0; i <= 10; i++) {
                         for (int j = 0; j <= 10; j++) {
@@ -80,7 +91,7 @@ int main(){
                 app.close();
 
 
-            //Evet wciœniêcia przycisków na myszce
+            //Evety wciœniêcia przycisków na myszce
             if (e.type == Event::MouseButtonPressed) {
                 if (e.key.code == Mouse::Left){
                     if(a[x][y].actual!=11)
