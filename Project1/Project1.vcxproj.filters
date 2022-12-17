@@ -24,6 +24,9 @@
     <ClCompile Include="Pole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="min.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pole.hpp">

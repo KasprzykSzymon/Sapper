@@ -1,12 +1,4 @@
-#include <SFML/Graphics.hpp>
 #include "Headers/Pole.hpp"
-//#include <SFML/Audio.hpp>
-//#include<SFML/Network.hpp>
-//#include<SFML/System.hpp>
-#include<SFML/Window.hpp>
-#include <time.h>
-
-
 
 using namespace sf;
 
@@ -15,16 +7,11 @@ int main(){
 
     //Renderowanie okna aplikacji
     RenderWindow app(VideoMode(400, 400), "Sapper");
-
-
-
-    int b = 0, bombs = 20, pixels = 32;
     
     //Wczytanie obrazu
     Texture picture1;
     picture1.loadFromFile("images/iconPools.jpg");
     Sprite s(picture1);
-    
     
     //losowanie miejsc bomb 
     while (b!=bombs) {
@@ -95,7 +82,7 @@ int main(){
             if (e.type == Event::MouseButtonPressed) {
                 if (e.key.code == Mouse::Left){
                     if(a[x][y].actual!=11)
-                        a[x][y].actual = a[x][y].mines;
+                        odslon(x, y);
                     /*if (a[x][y].actual == 0) {
                         odslon(x, y);
                         while (tab > ile) {
@@ -116,7 +103,6 @@ int main(){
             //Kolor t³a
             app.clear(Color::Black);
 
-
             //Wyœwietlanie ikon
             for (int i = 1; i <= 10; i++)
                 for (int j = 1; j <= 10; j++)
@@ -127,6 +113,7 @@ int main(){
                     app.draw(s);
                 }
             
+
             app.display();
     }
 
